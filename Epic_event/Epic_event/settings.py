@@ -100,7 +100,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+# " apres migration " AUTH_USER_MODEL = 'myapp.MyUser'
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
