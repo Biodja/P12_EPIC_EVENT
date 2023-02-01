@@ -21,9 +21,3 @@ ETAPE 4 : pip install -r requirements.txt
 ETAPE 5 : python3 manage.py runserver
 
 
-
-
-
-
-
-sudo docker-compose up
