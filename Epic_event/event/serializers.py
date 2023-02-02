@@ -33,18 +33,18 @@ class ContractSerializer(serializers.ModelSerializer):
   
     class Meta:
         model = Contract
-        fields = ['id','sales_contact','client','date_created','date_updated','status','amount','payment_due','event']
+        fields = ["id",'sales_contact','client','date_created','date_updated','status','amount','payment_due','event']
 
 
 
 
 class EventSerializer(serializers.ModelSerializer):
-
+    client = ClientSerializer(many=True, read_only=True)
 
     class Meta:
         model = Event
         fields = ['id','date_created','date_updated','support_contact','event_status','attendees','event_date','notes','client']
- 
+     
     
     
     
