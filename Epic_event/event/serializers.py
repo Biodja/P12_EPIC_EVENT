@@ -15,12 +15,20 @@ class ProfilSerializer(serializers.ModelSerializer):
         model = Profil
         fields = ['id','user','user_type']
 
+
 class ClientSerializer(serializers.ModelSerializer):
     ##sales_contact = serializers.PrimaryKeyRelatedField(default=serializers.CurrentUserDefault(), queryset=Profil.objects.all())
-
+    
+    
     class Meta:
         model = Client
         fields = ['id', 'first_name', 'last_name', 'email', 'phone', 'mobile', 'company_name', 'date_created', 'date_updated', 'sales_contact']
+    
+  
+  
+  
+  
+  
 
     
     

@@ -1,16 +1,16 @@
 import datetime
 from django.db import models
 from django.contrib.auth.models import User ,Group
+from django.utils.functional import SimpleLazyObject
+from django.contrib.auth.middleware import get_user
 
 
-NEW_CONTRACT = 'Nouveau contract'
-IN_PROGRESS = 'Contract en cour'
-VALIDATED = 'Contract validé'
-STATUS_CHOICES = [
-(NEW_CONTRACT, 'Nouveau contract'),
-(IN_PROGRESS, 'Contract en cour'),
-(VALIDATED, 'Contract validé'),
-]
+
+
+
+
+
+
 
 class Profil (models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
@@ -21,7 +21,12 @@ class Profil (models.Model):
 
 
 class UserType (models.Model):
-    type = models.CharField(max_length=20 , unique=True)
+    user_type = [
+        (1,"commercial"),
+        (2,"support")
+    ]
+
+    type = models.PositiveSmallIntegerField(choices=user_type)
 
     def __str__(self) -> str:
         return f'{self.type}'
@@ -39,10 +44,18 @@ class Client (models.Model):
     company_name = models.CharField(max_length=20)
     date_created = models.DateField(auto_now_add=True, blank=True)
     date_updated = models.DateField(auto_now_add=True , blank=True)
-    sales_contact = models.ForeignKey(Profil, on_delete=models.CASCADE , blank=True)
+    sales_contact = models.ForeignKey(Profil, on_delete=models.CASCADE , blank=True , null=True)
     
     def __str__(self) -> str:
         return f'{self.first_name} {self.last_name}{self.sales_contact}'
+
+
+
+
+
+
+
+
 
 
 class EventStatus(models.Model):
@@ -54,7 +67,7 @@ class EventStatus(models.Model):
         (IN_PROGRESS, 'Contract en cour'),
         (VALIDATED, 'Contract validé'), ]
     
-    status = models.CharField(max_length=20)
+    status = models.CharField(max_length=20 , choices=STATUS_CHOICES , default='Nouveau contract')
     def __str__(self) -> str:
         return f'{self.status}'    
 

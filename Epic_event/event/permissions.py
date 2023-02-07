@@ -29,13 +29,9 @@ class IsClientOwnerPermission(permissions.BasePermission):
 class IsCommercialPermission(permissions.BasePermission):
     message = "vous n'ete pas le commercial"
 
-
     def has_permission(self, request, view):
         profil = get_object_or_404(Profil, user=request.user)
-        
-        print(profil.user_type)
-        print(request.user)
-        return profil.user_type == UserType.objects.get(pk=2)
+        return profil.user_type.type == 1
             
             
 
@@ -64,7 +60,7 @@ class IsContractOwnerPermission(permissions.BasePermission):
             return True
         event = get_object_or_404(Contract, id=id_event)
         profil = get_object_or_404(Profil, user=request.user)
-        return event.sales_contact.user == profil
+        return event.sales_contact == profil
 
 
 class ReadOnlyPermission(permissions.BasePermission):
